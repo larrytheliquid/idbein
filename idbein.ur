@@ -19,7 +19,7 @@ structure Offer = struct
   </body></xml>
 end
 
-fun main () = return <xml><body>
+fun index () = return <xml><body>
   <a link={Offer.list ()}>Checkout offers</a>
 </body></xml>
 
