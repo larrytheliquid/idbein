@@ -1,3 +1,4 @@
+database dbname=idbein
 sql idbein.sql
 
 idbein
