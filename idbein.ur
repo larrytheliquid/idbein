@@ -1,26 +1,27 @@
-sequence s
-table offer : { Id : int, Title : string }
+sequence seq
+table offers : { Id : int, Title : string }
   PRIMARY KEY Id
 
 structure Offer = struct
-  fun post offer = return <xml><body>
-    <table>
-      <tr> <th>Title:</th> <td>{[offer.Title]}</td> </tr>
+  fun list () = rows <- queryX (SELECT * FROM offers)
+    (fn row => <xml><tr>
+      <td>{[row.Offers.Title]}</td>
+    </tr></xml>);
+  return <xml><body>
+    <table border=1>
+      <tr> <th>Title</th> </tr>
+      {rows}
     </table>
-  </body></xml>
-
-  fun list () = return <xml><body>
+    <br/><hr/><br/>
     <form>
       <table>
         <tr> <th>Title:</th> <td><textbox{#Title}/></td> </tr>
-        <tr> <th/> <td><submit action={post}/></td> </tr>
+        <tr> <th/> <td><submit action={create}/></td> </tr>
       </table>
     </form>
   </body></xml>
+
+  and create offer = list ()
 end
 
-fun index () = return <xml><body>
-  <a link={Offer.list ()}>Checkout offers</a>
-</body></xml>
-
-
+fun index () = Offer.list ()
