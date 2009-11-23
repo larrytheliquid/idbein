@@ -12,22 +12,24 @@ structure Offer = struct
     (fn row => <xml><tr>
       <form>
         <hidden{#Id} value={show row.Offers.Id}/>
-        <td>0/{[row.Offers.Threshold]} <submit action={vote} value="I'd be in!"/></td>
+        <td><submit action={vote} value="I'd be in!"/> 0/{[row.Offers.Threshold]}</td>
         <td>{[row.Offers.Title]}</td>
       </form>
     </tr></xml>);
   return <xml><body>
-    <table border=1>
-      <tr> <th/> <th>Title</th> </tr>
-      {rows}
-    </table>
-    <br/><hr/><br/>
     <table>
       <form>
         <tr> <th>Title:</th> <td><textbox{#Title}/></td> </tr>
         <tr> <th>Threshold:</th> <td><textbox{#Threshold}/></td> </tr>
         <tr> <th/> <td><submit action={create} value="Create"/></td> </tr>
       </form>
+    </table>
+
+    <br/><hr/><br/>
+
+    <table border=1>
+      <tr> <th/> <th>Title</th> </tr>
+      {rows}
     </table>
   </body></xml>
 
