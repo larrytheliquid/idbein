@@ -21,7 +21,11 @@ structure Offer = struct
     </form>
   </body></xml>
 
-  and create offer = list ()
+  and create offer =
+    id <- nextval seq;
+    dml (INSERT INTO offers (Id, Title)
+         VALUES ({[id]}, {[offer.Title]}));
+    list ()
 end
 
 fun index () = Offer.list ()
