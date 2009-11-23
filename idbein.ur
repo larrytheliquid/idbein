@@ -1,13 +1,18 @@
 sequence seq
+
 table offers : { Id : int, Title : string, Threshold : int }
   PRIMARY KEY Id
+
+table votes : { Id : int, OfferId : int }
+  PRIMARY KEY Id
+  CONSTRAINT C FOREIGN KEY OfferId REFERENCES offers (Id)
 
 structure Offer = struct
   fun list () = rows <- queryX (SELECT * FROM offers)
     (fn row => <xml><tr>
       <form>
         <hidden{#Id} value={show row.Offers.Id}/>
-        <td><submit action={vote} value="I'd be in!"/></td>
+        <td>0/{[row.Offers.Threshold]} <submit action={vote} value="I'd be in!"/></td>
         <td>{[row.Offers.Title]}</td>
       </form>
     </tr></xml>);
@@ -20,6 +25,7 @@ structure Offer = struct
     <table>
       <form>
         <tr> <th>Title:</th> <td><textbox{#Title}/></td> </tr>
+        <tr> <th>Threshold:</th> <td><textbox{#Threshold}/></td> </tr>
         <tr> <th/> <td><submit action={create} value="Create"/></td> </tr>
       </form>
     </table>
@@ -28,12 +34,13 @@ structure Offer = struct
   and create offer =
     id <- nextval seq;
     dml (INSERT INTO offers (Id, Title, Threshold)
-         VALUES ({[id]}, {[offer.Title]}, {[0]}));
+         VALUES ({[id]}, {[offer.Title]}, {[readError offer.Threshold]}));
     list ()
 
   and vote offer =
-    dml (UPDATE offers SET Threshold = {[33]}
-         WHERE Id = {[readError offer.Id]});
+    id <- nextval seq;
+    dml (INSERT INTO votes (Id, OfferId)
+         VALUES ({[id]}, {[readError offer.Id]}));
     list ()
 end
 
