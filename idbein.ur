@@ -21,19 +21,23 @@ structure Offer = struct
       </form>
     </tr></xml>);
   return <xml><body>
-    <table>
-      <form>
-        <tr> <th>Title:</th> <td><textbox{#Title}/></td> </tr>
-        <tr> <th>Threshold:</th> <td><textbox{#Threshold}/></td> </tr>
-        <tr> <th/> <td><submit action={create} value="Offer this"/></td> </tr>
-      </form>
-    </table>
+    <a link={new ()}>Offer something</a>
 
     <br/><hr/><br/>
 
     <table border=1>
       <tr> <th/> <th>Title</th> </tr>
       {rows}
+    </table>
+  </body></xml>
+
+  and new () = return <xml><body>
+    <table>
+      <form>
+        <tr> <th>Title:</th> <td><textbox{#Title}/> e.g. Intro to theorem proving</td> </tr>
+        <tr> <th>Threshold:</th> <td><textbox{#Threshold}/> e.g. 15</td> </tr>
+        <tr> <th/> <td><submit action={create} value="Offer this"/></td> </tr>
+      </form>
     </table>
   </body></xml>
 
