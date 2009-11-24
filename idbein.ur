@@ -73,7 +73,7 @@ fun layout () = return <xml>
     <div class={page}>
       <div class={faq}>
         <h1>Are you in?</h1>
-        <p>idbe.in (I’d be in) allows you to create polls.</p>
+        <p>idbe.in (I'd be in) allows you to create offers.</p>
         <p>If people vote on your offer past its threshold,
           then you can send them a 140 character message.</p>
       </div>
