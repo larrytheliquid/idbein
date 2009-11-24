@@ -58,35 +58,33 @@ structure Offer = struct
     list ()
 end
 
-style header
+style header style navigation style page
+style faq style content
+style footer style copyright
 
 fun layout () = return <xml>
-  <head>
-    <link rel="stylesheet" type="text/css" href="http://adam.chlipala.net/style.css"/>
-  </head>
-
   <body>
-    <div id={header}>
-      <ul id="section-1">
+    <div class={header}>
+      <ul class={navigation}>
         <li>All Polls</li>
       </ul>
     </div>
 
-    <div id="page">
-      <div id="faq">
+    <div class={page}>
+      <div class={faq}>
         <h1>Are you in?</h1>
         <p>idbe.in (I’d be in) allows you to create polls.</p>
         <p>If people vote on your offer past its threshold,
           then you can send them a 140 character message.</p>
       </div>
-      <div id="content">
+      <div class={content}>
         <a link={Offer.new ()}>Offer something</a>
 
       </div>
     </div>
 
-    <div id="footer">
-      <div id="copyright">
+    <div class={footer}>
+      <div class={copyright}>
         Copyright 2009 Larry Diehl, Zachary Berry &amp; Ian Turgeon
       </div>
     </div>
