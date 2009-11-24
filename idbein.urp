@@ -1,4 +1,5 @@
 database dbname=idbein
 sql idbein.sql
+rewrite style Idbein/*
 
 idbein
