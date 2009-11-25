@@ -70,20 +70,19 @@ fun layout () = return <xml>
   <body>
     <div class={header}>
       <ul class={section1}>
-        <li>All Polls</li>
+        <li>All Offers</li>
       </ul>
     </div>
 
     <div class={page}>
       <div class={faq}>
         <h1>Are you in?</h1>
-        <p>idbe.in (I'd be in) allows you to create offers.</p>
-        <p>If people vote on your offer past its threshold,
-          then you can send them a 140 character message.</p>
+        <p>idbe.in (I'd be in) allows you to make offers.</p>
+        <p>If people vote your offer past its threshold,
+          then you can send them a 140 character reply.</p>
       </div>
       <div class={content}>
-        <a link={Offer.new ()} class={newOffer}>+ offer something</a>
-
+        <a link={Offer.new ()} class={newOffer}>+ add offer</a>
       </div>
     </div>
 
