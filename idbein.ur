@@ -78,11 +78,11 @@ fun layout () = return <xml>
       <div class={faq}>
         <h1>Are you in?</h1>
         <p>idbe.in (I'd be in) allows you to make offers.</p>
-        <p>If people vote your offer past its threshold,
-          then you can send them a 140 character reply.</p>
+        <p>Any time people vote an offer of yours past its threshold,
+           you're able to send them 1 message.</p>
       </div>
       <div class={content}>
-        <a link={Offer.new ()} class={newOffer}>+ add offer</a>
+        <a link={Offer.new ()} class={newOffer}>+ make an offer</a>
       </div>
     </div>
 
