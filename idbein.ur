@@ -12,6 +12,10 @@ structure Style = struct
   style header style section1 style page
   style faq style content style screenLogo
   style newOffer style footer style copyright
+  style offer style votes style title style info
+  style divider style currentVotes style threshold
+  style checkbox style miscInfo style author
+  style about
 end
 
 fun layout yield = return <xml>
@@ -50,23 +54,25 @@ fun layout yield = return <xml>
 
 structure Offer = struct
   fun list () = rows <- queryX (SELECT * FROM offers)
-    (fn row => <xml><tr>
-      <form>
-        <hidden{#Id} value={show row.Offers.Id}/>
-        <td>
-          <submit action={vote} value="I'd be in"/>
-          {[row.Offers.VotesCount]}/{[row.Offers.Threshold]}
-        </td>
-        <td>{[row.Offers.Title]}</td>
-      </form>
-    </tr></xml>);
+    (fn row => <xml><form><div class={Style.offer}>
+      <div class={Style.votes}>
+        <div class={Style.currentVotes}>{[row.Offers.VotesCount]}</div>
+        <div class={Style.divider}>/</div>
+        <div class={Style.threshold}>{[row.Offers.Threshold]}</div>
+      </div>
+
+      <hidden{#Id} value={show row.Offers.Id}/>
+      <div class={Style.checkbox}>
+        <submit action={vote} value="I'd be in"/>
+      </div>
+
+      <div class={Style.info}>
+        <div class={Style.title}>{[row.Offers.Title]}</div>
+      </div>
+    </div></form></xml>);
   layout <xml>
     <a link={new ()} class={Style.newOffer}>+ make an offer</a>
-
-    <table border=1>
-      <tr> <th/> <th>Title</th> </tr>
-      {rows}
-    </table>
+    {rows}
   </xml>
 
   and new () = layout <xml>
