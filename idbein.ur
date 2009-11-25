@@ -8,9 +8,11 @@ table votes : { Id : int, OfferId : int }
   CONSTRAINT C FOREIGN KEY OfferId REFERENCES offers(Id)
   ON DELETE RESTRICT
 
-style header style section1 style page
-style faq style content style screenLogo
-style newOffer style footer style copyright
+structure Style = struct
+  style header style section1 style page
+  style faq style content style screenLogo
+  style newOffer style footer style copyright
+end
 
 fun layout yield = return <xml>
   <head>
@@ -18,31 +20,31 @@ fun layout yield = return <xml>
   </head>
 
   <body>
-    <div class={header}>
-      <ul class={section1}>
+    <div class={Style.header}>
+      <ul class={Style.section1}>
         <li>All Offers</li>
       </ul>
     </div>
 
-    <div class={page}>
-      <div class={faq}>
+    <div class={Style.page}>
+      <div class={Style.faq}>
         <h1>Are you in?</h1>
         <p>idbe.in (I'd be in) allows you to make offers.</p>
         <p>Any time people vote an offer of yours past its threshold,
            you're able to send them 1 message.</p>
       </div>
-      <div class={content}>
+      <div class={Style.content}>
         {yield}
       </div>
     </div>
 
-    <div class={footer}>
-      <div class={copyright}>
+    <div class={Style.footer}>
+      <div class={Style.copyright}>
         Copyright 2009 Larry Diehl, Zachary Berry &amp; Ian Turgeon
       </div>
     </div>
 
-    <div class={screenLogo}/>
+    <div class={Style.screenLogo}/>
   </body>
 </xml>
 
@@ -59,7 +61,7 @@ structure Offer = struct
       </form>
     </tr></xml>);
   layout <xml>
-    <a link={new ()} class={newOffer}>+ make an offer</a>
+    <a link={new ()} class={Style.newOffer}>+ make an offer</a>
 
     <table border=1>
       <tr> <th/> <th>Title</th> </tr>
