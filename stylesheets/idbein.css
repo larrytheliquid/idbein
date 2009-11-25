@@ -18,7 +18,7 @@ body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; backgro
 .page .faq p { font-weight: bold; margin-top: 0; color: #717171; }
 .page .content { float: right; width: 75%; margin: 0 auto; margin-top: 50px; }
 .page .content .newOffer { font-size: 20pt; font-weight: bold; }
-.page .content .offer { overflow: hidden; width: 600px; height: 80px; background-color: #dddddd; margin-bottom: 10px; padding: 5px; border-bottom: dotted thin gray; }
+.page .content .offer { overflow: hidden; width: 600px; height: 80px; background-color: #dddddd; margin-top: 3px; margin-bottom: 8px; padding: 5px; border-bottom: dotted thin gray; }
 
 /** offer classes: **/
 
