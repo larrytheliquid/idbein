@@ -58,14 +58,18 @@ structure Offer = struct
     list ()
 end
 
-style header style navigation style page
-style faq style content
-style footer style copyright
+style header style section1 style page
+style faq style content style screenLogo
+style newOffer style footer style copyright
 
 fun layout () = return <xml>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/idbein.css"/>
+  </head>
+
   <body>
     <div class={header}>
-      <ul class={navigation}>
+      <ul class={section1}>
         <li>All Polls</li>
       </ul>
     </div>
@@ -78,7 +82,7 @@ fun layout () = return <xml>
           then you can send them a 140 character message.</p>
       </div>
       <div class={content}>
-        <a link={Offer.new ()}>Offer something</a>
+        <a link={Offer.new ()} class={newOffer}>+ offer something</a>
 
       </div>
     </div>
@@ -88,6 +92,8 @@ fun layout () = return <xml>
         Copyright 2009 Larry Diehl, Zachary Berry &amp; Ian Turgeon
       </div>
     </div>
+
+    <div class={screenLogo}/>
   </body>
 </xml>
 
