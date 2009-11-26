@@ -1,5 +1,7 @@
 database dbname=idbein
 sql idbein.sql
+rewrite url Idbein/index
+rewrite url Idbein/*
 allow url /stylesheets/idbein.css
 rewrite style Idbein/Style/*
 allow url #
