@@ -53,7 +53,7 @@ fun layout yield = return <xml>
 </xml>
 
 structure Offer = struct
-  fun list () = rows <- queryX' (SELECT * FROM offers)
+  fun list () = rows <- queryX' (SELECT * FROM offers ORDER BY offers.Id)
     (fn row => votesCountSource <- source row.Offers.VotesCount;
       return <xml><div class={Style.offer}>
         <div class={Style.votes}>
