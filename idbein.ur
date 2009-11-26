@@ -48,7 +48,7 @@ fun layout yield = return <xml>
       </div>
     </div>
 
-    <div class={Style.screenLogo}/>
+    <a href="/" class={Style.screenLogo}/>
   </body>
 </xml>
 
