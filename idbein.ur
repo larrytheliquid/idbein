@@ -55,7 +55,7 @@ fun layout yield = return <xml>
 structure Offer = struct
   fun list () = rows <- queryX' (SELECT * FROM offers)
     (fn row => votesCountSource <- source row.Offers.VotesCount;
-        return <xml><form><div class={Style.offer}>
+      return <xml><div class={Style.offer}>
         <div class={Style.votes}>
           <div class={Style.currentVotes}>
             <dyn signal={votesCountSignal <- signal votesCountSource;
@@ -65,18 +65,16 @@ structure Offer = struct
           <div class={Style.threshold}>{[row.Offers.Threshold]}</div>
         </div>
 
-        <hidden{#Id} value={show row.Offers.Id}/>
         <div class={Style.checkbox}>
-          <button value="I'd be in" onclick={votesCount <- get votesCountSource;
+          <button value="I'd be in" onclick={rpc (vote row.Offers);
+                                             votesCount <- get votesCountSource;
                                              set votesCountSource (votesCount + 1)}/>
-          <submit action={vote} value="I'd be in"/>
         </div>
 
         <div class={Style.info}>
           <div class={Style.title}>{[row.Offers.Title]}</div>
         </div>
-      </div></form>
-      </xml>);
+      </div></xml>);
   layout <xml>
     <a link={new ()} class={Style.newOffer}>+ make an offer</a>
     {rows}
@@ -101,12 +99,11 @@ structure Offer = struct
   and vote offer =
     id <- nextval seq;
     dml (INSERT INTO votes (Id, OfferId)
-         VALUES ({[id]}, {[readError offer.Id]}));
+         VALUES ({[id]}, {[offer.Id]}));
     votesCount <- oneRowE1 (SELECT offers.VotesCount AS VC FROM offers
-                            WHERE offers.Id = {[readError offer.Id]});
+                            WHERE offers.Id = {[offer.Id]});
     dml (UPDATE offers SET VotesCount = {[votesCount + 1]}
-         WHERE Id = {[readError offer.Id]});
-    list ()
+         WHERE Id = {[offer.Id]})
 end
 
 fun index () = Offer.list ()
