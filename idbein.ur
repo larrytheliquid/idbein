@@ -53,23 +53,30 @@ fun layout yield = return <xml>
 </xml>
 
 structure Offer = struct
-  fun list () = rows <- queryX (SELECT * FROM offers)
-    (fn row => <xml><form><div class={Style.offer}>
-      <div class={Style.votes}>
-        <div class={Style.currentVotes}>{[row.Offers.VotesCount]}</div>
-        <div class={Style.divider}>/</div>
-        <div class={Style.threshold}>{[row.Offers.Threshold]}</div>
-      </div>
+  fun list () = rows <- queryX' (SELECT * FROM offers)
+    (fn row => votesCountSource <- source row.Offers.VotesCount;
+        return <xml><form><div class={Style.offer}>
+        <div class={Style.votes}>
+          <div class={Style.currentVotes}>
+            <dyn signal={votesCountSignal <- signal votesCountSource;
+                         return <xml>{[votesCountSignal]}</xml>}/>
+          </div>
+          <div class={Style.divider}>/</div>
+          <div class={Style.threshold}>{[row.Offers.Threshold]}</div>
+        </div>
 
-      <hidden{#Id} value={show row.Offers.Id}/>
-      <div class={Style.checkbox}>
-        <submit action={vote} value="I'd be in"/>
-      </div>
+        <hidden{#Id} value={show row.Offers.Id}/>
+        <div class={Style.checkbox}>
+          <button value="I'd be in" onclick={votesCount <- get votesCountSource;
+                                             set votesCountSource (votesCount + 1)}/>
+          <submit action={vote} value="I'd be in"/>
+        </div>
 
-      <div class={Style.info}>
-        <div class={Style.title}>{[row.Offers.Title]}</div>
-      </div>
-    </div></form></xml>);
+        <div class={Style.info}>
+          <div class={Style.title}>{[row.Offers.Title]}</div>
+        </div>
+      </div></form>
+      </xml>);
   layout <xml>
     <a link={new ()} class={Style.newOffer}>+ make an offer</a>
     {rows}
