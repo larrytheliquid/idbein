@@ -15,7 +15,7 @@ structure Style = struct
   style offer style votes style title style info
   style divider style currentVotes style threshold
   style checkbox style miscInfo style author
-  style about
+  style about style noVote style voted style voteDescription
 end
 
 fun layout yield = return <xml>
@@ -65,11 +65,12 @@ structure Offer = struct
           <div class={Style.threshold}>{[row.Offers.Threshold]}</div>
         </div>
 
-        <div class={Style.checkbox}>
-          <button value="I'd be in" onclick={rpc (vote row.Offers);
-                                             votesCount <- get votesCountSource;
-                                             set votesCountSource (votesCount + 1)}/>
-        </div>
+        <a href="#" class={Style.checkbox} onclick={rpc (vote row.Offers);
+                                                     votesCount <- get votesCountSource;
+                                                     set votesCountSource (votesCount + 1)}>
+          <div class={Style.voted}/>
+          <div class={Style.voteDescription}>I'd be in</div>
+        </a>
 
         <div class={Style.info}>
           <div class={Style.title}>{[row.Offers.Title]}</div>
