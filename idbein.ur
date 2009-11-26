@@ -35,7 +35,7 @@ fun layout yield = return <xml>
         <h1>Are you in?</h1>
         <p>idbe.in (I'd be in) allows you to make offers.</p>
         <p>Any time people vote an offer of yours past its threshold,
-           you're able to send them 1 message.</p>
+           you're allowed to send them 1 message.</p>
       </div>
       <div class={Style.content}>
         {yield}
